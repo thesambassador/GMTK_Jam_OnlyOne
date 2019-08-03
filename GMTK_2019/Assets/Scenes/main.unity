@@ -3568,6 +3568,11 @@ PrefabInstance:
       propertyPath: boxCaster
       value: 
       objectReference: {fileID: 4543603910364029617}
+    - target: {fileID: 4543603910364029610, guid: 2260d38853b06a54281a84704034128d,
+        type: 3}
+      propertyPath: m_Simulated
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3135024314850977259, guid: 2260d38853b06a54281a84704034128d,
         type: 3}
       propertyPath: m_Size.y
@@ -3603,4 +3608,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00e8b221e759d6742b8daced7502015e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BoxcastWidth: 1
+  BoxcastWidth: 0.35

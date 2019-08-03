@@ -22,7 +22,7 @@ public class PushableBlock : MonoBehaviour {
 	// Start is called before the first frame update
 	void Start()
     {
-		CheckGround();
+		Invoke("CheckGround", .01f);
 		ResetPushTimer();
 
 	}

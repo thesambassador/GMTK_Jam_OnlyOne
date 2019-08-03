@@ -48,6 +48,7 @@ public class PlayerControls : MonoBehaviour
 	[Header("Live Values")]
 	public bool OnGround = false;
 	public bool CanJump = false;
+	public bool facingRight = true;
 	public PlayerAbility CurrentAbility;
 
 	public BoxCaster boxCaster;
@@ -90,10 +91,12 @@ public class PlayerControls : MonoBehaviour
 		//animation shit:
 		if(_rb.velocity.x > .05) {
 			MainCharSprite.flipX = false;
+			facingRight = true;
 			_animator.SetBool("Walking", true);
 		}
 		else if(_rb.velocity.x < -.05 ){
 			MainCharSprite.flipX = true;
+			facingRight = false;
 			_animator.SetBool("Walking", true);
 		}
 		else {
@@ -136,13 +139,17 @@ public class PlayerControls : MonoBehaviour
 	}
 
 	void ProcessOnGround() {
-		if(boxCaster.BoxcastInDirection(Vector2.down, OnGroundRaycastDist, GroundLayers)) {
-			_animator.SetBool("InAir", false);
-			OnGround = true;
-			_numAirJumpsRemaining = NumAdditionalJumps;
-			_coyoteTimer = CoyoteTime;
-			if (_jumpCooldownTimer <= 0) {
-				CanJump = true;
+		RaycastHit2D groundHit;
+		if(boxCaster.GetFirstBoxcastHit(Vector2.down, OnGroundRaycastDist, GroundLayers, out groundHit)) {
+			//print(groundHit.point.y);
+			if (groundHit.point.y < transform.position.y - .35f) {
+				_animator.SetBool("InAir", false);
+				OnGround = true;
+				_numAirJumpsRemaining = NumAdditionalJumps;
+				_coyoteTimer = CoyoteTime;
+				if (_jumpCooldownTimer <= 0) {
+					CanJump = true;
+				}
 			}
 		}
 		else {
