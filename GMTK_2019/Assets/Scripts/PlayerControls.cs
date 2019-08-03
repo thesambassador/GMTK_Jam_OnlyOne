@@ -17,10 +17,9 @@ public class PlayerControls : MonoBehaviour
 	Player _controls;
 	Rigidbody2D _rb;
 	Animator _animator;
-	Vector2 _boxcastSize;
-	RaycastHit2D[] _raycastResults;
 	float _coyoteTimer = -1;
 	float _jumpCooldownTimer = -1;
+	int _numAirJumpsRemaining = 0;
 	Vector2 _horizontalMovementForce;
 	public SpriteRenderer MainCharSprite;
 
@@ -35,17 +34,23 @@ public class PlayerControls : MonoBehaviour
 	public float JumpInitialVelocity;
 	public float JumpReleaseDamping;
 	public float JumpHoldForce;
+	public int NumAdditionalJumps = 0;
 
 	[Header("OnGround Stuff")]
 	public float CoyoteTime;
 	public float JumpCooldown;
 	public float OnGroundRaycastDist;
 	public LayerMask GroundLayers;
-	public float BoxcastWidth = 1;
+
+	[Header("Other")]
+	public bool CanPush = false;
 
 	[Header("Live Values")]
 	public bool OnGround = false;
 	public bool CanJump = false;
+	public PlayerAbility CurrentAbility;
+
+	public BoxCaster boxCaster;
 
     // Start is called before the first frame update
     void Start()
@@ -54,8 +59,7 @@ public class PlayerControls : MonoBehaviour
 		_rb = GetComponent<Rigidbody2D>();
 		_animator = GetComponentInChildren<Animator>();
 
-		_boxcastSize = new Vector2(BoxcastWidth, BoxcastWidth);
-		_raycastResults = new RaycastHit2D[20];
+
 		_horizontalMovementForce = new Vector2(0, 0);
 	}
 
@@ -65,6 +69,7 @@ public class PlayerControls : MonoBehaviour
 		ProcessOnGround();
 		ProcessHorizontalMovement();
 		ProcessJump();
+		ProcessAbility();
     }
 
 	void ProcessHorizontalMovement() {
@@ -80,7 +85,7 @@ public class PlayerControls : MonoBehaviour
 		float accel = accelCurve.Evaluate(normalizedVelDiff / MaxSpeed) * MaxAcceleration * Mathf.Sign(velDiff);
 		_horizontalMovementForce.x = accel;
 
-		print("targetvel: " + targetVel + " -- normalizedVelDiff " + normalizedVelDiff + " -- accel: " + accel);
+		//print("targetvel: " + targetVel + " -- normalizedVelDiff " + normalizedVelDiff + " -- accel: " + accel);
 		
 		//animation shit:
 		if(_rb.velocity.x > .05) {
@@ -109,23 +114,32 @@ public class PlayerControls : MonoBehaviour
 			}
 		}
 
-		//jump hold force
-
-		//jump damping
-		if (!OnGround) {
-			if(_rb.velocity.y > 0) {
+		//jump damping/double jumps
+		else if (!OnGround) {
+			if (_rb.velocity.y > 0) {
 				if (_controls.GetButtonUp(ActionNames.Jump)) {
 					_rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y * JumpReleaseDamping);
 				}
 			}
+
+			if (_numAirJumpsRemaining > 0) {
+				if (_controls.GetButtonDown(ActionNames.Jump)){
+					_rb.AddForce(new Vector2(0, JumpInitialVelocity), ForceMode2D.Impulse);
+					_numAirJumpsRemaining--;
+				}
+			}
 		}
+
+		//jump hold force
+
+
 	}
 
 	void ProcessOnGround() {
-		float hits = Physics2D.BoxCastNonAlloc(transform.position, _boxcastSize, 0, Vector2.down, _raycastResults, OnGroundRaycastDist, GroundLayers.value);
-		if(hits > 0) {
+		if(boxCaster.BoxcastInDirection(Vector2.down, OnGroundRaycastDist, GroundLayers)) {
 			_animator.SetBool("InAir", false);
 			OnGround = true;
+			_numAirJumpsRemaining = NumAdditionalJumps;
 			_coyoteTimer = CoyoteTime;
 			if (_jumpCooldownTimer <= 0) {
 				CanJump = true;
@@ -144,7 +158,56 @@ public class PlayerControls : MonoBehaviour
 		}
 	}
 
+	void ProcessAbility() {
+		if(CurrentAbility != null) {
+			CurrentAbility.UpdateAbility();
+			if (_controls.GetButtonDown(ActionNames.Ability)){
+				CurrentAbility.UseAbility();
+			}
+		}
+		
+	}
+
+	public void SetNumJumps(int newNumJumps) {
+		_numAirJumpsRemaining = newNumJumps;
+		NumAdditionalJumps = newNumJumps;
+	}
+
 	private void FixedUpdate() {
 		_rb.AddForce(_horizontalMovementForce);
+	}
+
+	private void OnTriggerEnter2D(Collider2D collision) {
+		PlayerAbility ability = collision.GetComponent<PlayerAbility>();
+		if(ability != null && ability.CanBePickedUp) {
+			if(CurrentAbility != null) {
+				CurrentAbility.DropAbility(ability.transform.position);
+			}
+			ability.PickupAbility(this);
+			CurrentAbility = ability;
+		}
+	}
+
+	private void OnCollisionStay2D(Collision2D collision) {
+		
+		if(collision.gameObject.tag == "PushBlock") {
+			if (OnGround && Mathf.Abs(transform.position.y - collision.transform.position.y) < .5f && CanPush) {
+				float xInput = _controls.GetAxis(ActionNames.HorizontalMovement);
+				PushableBlock pb = collision.gameObject.GetComponent<PushableBlock>();
+				if (transform.position.x < collision.transform.position.x && xInput > 0) {
+					pb.TryPush(true);
+				}
+				else if (transform.position.x > collision.transform.position.x && xInput < 0) {
+					pb.TryPush(false);
+				}
+			}
+		}
+	}
+
+	private void OnCollisionExit2D(Collision2D collision) {
+		if (collision.gameObject.tag == "PushBlock") {
+			PushableBlock pb = collision.gameObject.GetComponent<PushableBlock>();
+			pb.ResetPushTimer();
+		}
 	}
 }
