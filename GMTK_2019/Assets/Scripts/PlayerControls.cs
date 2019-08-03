@@ -193,6 +193,9 @@ public class PlayerControls : MonoBehaviour
 			ability.PickupAbility(this);
 			CurrentAbility = ability;
 		}
+		else if(collision.tag == "Goal") {
+			LevelManager.CompleteLevel();
+		}
 	}
 
 	private void OnCollisionStay2D(Collision2D collision) {
@@ -217,4 +220,6 @@ public class PlayerControls : MonoBehaviour
 			pb.ResetPushTimer();
 		}
 	}
+
+
 }

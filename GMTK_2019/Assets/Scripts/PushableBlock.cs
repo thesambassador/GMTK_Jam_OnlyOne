@@ -19,10 +19,12 @@ public class PushableBlock : MonoBehaviour {
 
 	public BoxCaster BoxcastHelper;
 
+	
+
 	// Start is called before the first frame update
 	void Start()
     {
-		Invoke("CheckGround", .01f);
+		
 		ResetPushTimer();
 
 	}
@@ -30,7 +32,9 @@ public class PushableBlock : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-		
+		if (!isFalling && !isPushing) {
+			CheckGround();
+		}
 
 	}
 
@@ -46,7 +50,7 @@ public class PushableBlock : MonoBehaviour {
 		RaycastHit2D result;
 		if(BoxcastHelper.GetFirstBoxcastHit(Vector2.down, 100, GroundLayers, out result)) {
 			float dist = transform.position.y - result.point.y - HalfBoxSize;
-			print(dist);
+			//print(dist);
 			if(dist > 0) {
 				StartCoroutine(Fall(dist));
 			}
@@ -57,16 +61,24 @@ public class PushableBlock : MonoBehaviour {
 		_pushTimer = PushTime;
 	}
 
-	
-	public void TryPush(bool pushingRight) {
+
+	public void TryPush(bool pushingRight, bool overridePushTime = false) {
 		if (CanPush) {
 			_pushTimer -= Time.deltaTime;
-			if (_pushTimer <= 0) {
+			if (_pushTimer <= 0 || overridePushTime) {
 				Vector2 direction = Vector2.right;
 				if (!pushingRight) direction = Vector2.left;
 
 				if (!BoxcastHelper.BoxcastInDirection(direction, 1, GroundLayers)) {
 					StartCoroutine(Push(direction.x));
+					//check for boxes on top of this one and push them too if we can
+					RaycastHit2D result;
+					if(BoxcastHelper.GetFirstBoxcastHit(Vector2.up, 1, GroundLayers, out result)) {
+						PushableBlock pb = result.transform.GetComponent<PushableBlock>();
+						if (pb != null) {
+							pb.TryPush(pushingRight, true);
+						}
+					}
 				}
 			}
 		}

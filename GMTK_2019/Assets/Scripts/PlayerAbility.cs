@@ -6,7 +6,6 @@ public class PlayerAbility : MonoBehaviour
 {
 	protected PlayerControls _player;
 	public bool HeldByPlayer = false;
-
 	public bool CanBePickedUp = true;
 
     public void PickupAbility(PlayerControls player) {
@@ -38,7 +37,6 @@ public class PlayerAbility : MonoBehaviour
 	protected virtual void InternalUse() { }
 	protected virtual void InternalDrop() { }
 	protected virtual void InternalUpdate() { }
-
 
 	public void OnTriggerExit2D(Collider2D collision) {
 		if(collision.tag == "Player") {

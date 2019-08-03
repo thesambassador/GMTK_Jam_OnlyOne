@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ability
   - PushBlock
+  - Goal
   layers:
   - Default
   - TransparentFX

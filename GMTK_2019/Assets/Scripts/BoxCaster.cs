@@ -12,7 +12,7 @@ public class BoxCaster : MonoBehaviour {
 	// Start is called before the first frame update
 	void Start() {
 		_boxCastSize = new Vector2(BoxcastWidth, BoxcastWidth);
-		_raycastResults = new RaycastHit2D[20];
+		InitializeResults();
 	}
 
 	// Update is called once per frame
@@ -20,7 +20,14 @@ public class BoxCaster : MonoBehaviour {
 
 	}
 
+	void InitializeResults() {
+		if (_raycastResults == null) {
+			_raycastResults = new RaycastHit2D[20];
+		}
+	}
+
 	public bool BoxcastInDirection(Vector2 direction, float maxDist, LayerMask targetLayers) {
+		InitializeResults();
 		int hits = Physics2D.BoxCastNonAlloc(transform.position, _boxCastSize, 0, direction, _raycastResults, maxDist, targetLayers.value);
 		if (hits > 0) {
 			for (int i = 0; i < hits; i++) {
@@ -36,6 +43,7 @@ public class BoxCaster : MonoBehaviour {
 	}
 
 	public bool GetFirstBoxcastHit(Vector2 direction, float maxDist, LayerMask targetLayers, out RaycastHit2D location) {
+		InitializeResults();
 		int hits = Physics2D.BoxCastNonAlloc(transform.position, _boxCastSize, 0, direction, _raycastResults, maxDist, targetLayers.value);
 		if (hits > 0) {
 			for (int i = 0; i < hits; i++) {
