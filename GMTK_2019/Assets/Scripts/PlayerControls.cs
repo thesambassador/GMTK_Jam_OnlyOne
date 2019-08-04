@@ -75,7 +75,7 @@ public class PlayerControls : MonoBehaviour
 
 	void ProcessHorizontalMovement() {
 		AnimationCurve accelCurve = AccelerationVelocityCurveGround;
-		//if (!OnGround) { accelCurve = AccelerationVelocityCurveAir; }
+		if (!OnGround) { accelCurve = AccelerationVelocityCurveAir; }
 
 		float xMovement = _controls.GetAxis(ActionNames.HorizontalMovement);
 
@@ -219,6 +219,14 @@ public class PlayerControls : MonoBehaviour
 			PushableBlock pb = collision.gameObject.GetComponent<PushableBlock>();
 			pb.ResetPushTimer();
 		}
+	}
+
+	public void PausePlayerControls() {
+		_rb.simulated = false;
+	}
+
+	public void ResumePlayerControls() {
+		_rb.simulated = true;
 	}
 
 

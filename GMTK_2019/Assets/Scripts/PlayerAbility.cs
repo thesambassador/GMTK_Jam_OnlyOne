@@ -8,6 +8,10 @@ public class PlayerAbility : MonoBehaviour
 	public bool HeldByPlayer = false;
 	public bool CanBePickedUp = true;
 
+	public string AbilityName;
+	public Sprite AbilitySprite;
+	public string AbilityDescription;
+
     public void PickupAbility(PlayerControls player) {
 		HeldByPlayer = true;
 		_player = player;

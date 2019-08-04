@@ -8605,22 +8605,22 @@ PrefabInstance:
     - target: {fileID: 3437082492654580501, guid: 57574d7ab142e834bb34240c99756b61,
         type: 3}
       propertyPath: m_text
-      value: Getting harder...
+      value: Hit R to restart if you're stuck!
       objectReference: {fileID: 0}
     - target: {fileID: 3437082492654580501, guid: 57574d7ab142e834bb34240c99756b61,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 17
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 3437082492654580501, guid: 57574d7ab142e834bb34240c99756b61,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3437082492654580501, guid: 57574d7ab142e834bb34240c99756b61,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 2
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3437082492654580501, guid: 57574d7ab142e834bb34240c99756b61,
         type: 3}

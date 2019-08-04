@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4543603910364029610}
   - component: {fileID: 3135024314850977259}
   - component: {fileID: 4543603910364029617}
+  - component: {fileID: 6152884906612103300}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -103,8 +104,17 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.08324486
     - serializedVersion: 3
+      time: 0.37814692
+      value: 0.7396648
+      inSlope: 0.61167246
+      outSlope: 0.61167246
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
       time: 2
-      value: 0.51250076
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -115,8 +125,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   MaxAcceleration: 50
-  MaxSpeed: 3
-  JumpInitialVelocity: 5
+  MaxSpeed: 5
+  JumpInitialVelocity: 5.5
   JumpReleaseDamping: 0.5
   JumpHoldForce: 0
   NumAdditionalJumps: 0
@@ -126,12 +136,12 @@ MonoBehaviour:
   GroundLayers:
     serializedVersion: 2
     m_Bits: 512
-  CanPush: 0
+  CanPush: 1
   OnGround: 0
   CanJump: 0
   facingRight: 1
   CurrentAbility: {fileID: 0}
-  boxCaster: {fileID: 4543603910364029617}
+  boxCaster: {fileID: 6152884906612103300}
 --- !u!50 &4543603910364029610
 Rigidbody2D:
   serializedVersion: 4
@@ -170,6 +180,19 @@ CapsuleCollider2D:
   m_Size: {x: 0.7, y: 0.7}
   m_Direction: 0
 --- !u!114 &4543603910364029617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4973348573703583073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00e8b221e759d6742b8daced7502015e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BoxcastWidth: 0.35
+--- !u!114 &6152884906612103300
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
