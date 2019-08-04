@@ -8677,6 +8677,26 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3437082492654580501, guid: 57574d7ab142e834bb34240c99756b61,
+        type: 3}
+      propertyPath: m_text
+      value: Grapple!
+      objectReference: {fileID: 0}
+    - target: {fileID: 3437082492654580501, guid: 57574d7ab142e834bb34240c99756b61,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3437082492654580501, guid: 57574d7ab142e834bb34240c99756b61,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3437082492654580501, guid: 57574d7ab142e834bb34240c99756b61,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57574d7ab142e834bb34240c99756b61, type: 3}
 --- !u!1001 &3814850711924039197

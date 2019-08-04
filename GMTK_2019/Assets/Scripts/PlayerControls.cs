@@ -206,6 +206,7 @@ public class PlayerControls : MonoBehaviour
 			CurrentAbility = ability;
 		}
 		else if(collision.tag == "Goal") {
+			PausePlayerControls();
 			LevelManager.CompleteLevel();
 		}
 	}

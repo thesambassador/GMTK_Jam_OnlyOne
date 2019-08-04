@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.UI;
+using TMPro;
 
 public class AbilityPanel : MonoBehaviour
 {
@@ -12,8 +13,8 @@ public class AbilityPanel : MonoBehaviour
 	}
 
 	public Image AbilitySprite;
-	public Text NameText;
-	public Text DescriptionText;
+	public TextMeshProUGUI NameText;
+	public TextMeshProUGUI DescriptionText;
 
     public static void SetAbilityInfo(PlayerAbility ability) {
 		instance.AbilitySprite.sprite = ability.AbilitySprite;
