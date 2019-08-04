@@ -128,3 +128,5 @@ MonoBehaviour:
   BlockPrefab: {fileID: 86303123214474376, guid: 23d914547a1cc854694392a27029ae6c,
     type: 3}
   grid: {fileID: 0}
+  SpawnBlockPreviewPrefab: {fileID: 217392250764857730, guid: b7f857405217fc24397b616691dbc85f,
+    type: 3}

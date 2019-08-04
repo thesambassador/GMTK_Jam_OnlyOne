@@ -99,11 +99,18 @@ public class PlayerControls : MonoBehaviour
 		else if(_rb.velocity.x < -.05 ){
 			MainCharSprite.flipX = true;
 			facingRight = false;
-			_animator.SetBool("Walking", true);
+			if (Mathf.Abs(xMovement) > .1f) {
+				_animator.SetBool("Walking", true);
+			}
+			else {
+				_animator.SetBool("Walking", false);
+			}
 		}
 		else {
 			_animator.SetBool("Walking", false);
 		}
+
+		
 
 	}
 
@@ -203,6 +210,7 @@ public class PlayerControls : MonoBehaviour
 			}
 			ability.PickupAbility(this);
 			SoundPlayer.PlaySound(PlayerSound.Pickup);
+			LevelManager.HighlightAbilityAnimation();
 			CurrentAbility = ability;
 		}
 		else if(collision.tag == "Goal") {

@@ -8,13 +8,41 @@ public class AbilitySpawnBlock : PlayerAbility
 	public PushableBlock BlockPrefab;
 	public Grid grid;
 
+	public SpriteRenderer SpawnBlockPreviewPrefab;
+	private SpriteRenderer _spawnBlockPreview;
+
 	protected override void InternalPickup() {
 		if (grid == null) {
 			grid = GameObject.FindObjectOfType<Grid>();
 		}
+
+		_spawnBlockPreview = Instantiate(SpawnBlockPreviewPrefab);
+		_spawnBlockPreview.enabled = false;
 	}
 
 	protected override void InternalUpdate() {
+		Vector2 direction = Vector2.right;
+		if (!_player.facingRight) direction = Vector2.left;
+
+		if (!_player.boxCaster.BoxcastInDirection(direction, 1, _player.GroundLayers) && _player.OnGround) {
+			Vector2 targetPosition = (Vector2)_player.transform.position + direction;
+			//print("Target: " + targetPosition);
+			Vector3Int cellCoordinates = grid.WorldToCell(targetPosition);
+			//print("Grid: " + cellCoordinates);
+			Vector2 snappedPosition = grid.CellToWorld(cellCoordinates);
+			snappedPosition.x += direction.x / 2;
+			snappedPosition.y += .5f;
+			//print("Snapped: " + snappedPosition);
+			//fast hack so i don't have to think, but spawning a block to the left is always offset 1 space, so i'll just... you know, hack it
+			if (!_player.facingRight) {
+				snappedPosition.x += 1;
+			}
+			_spawnBlockPreview.enabled = true;
+			_spawnBlockPreview.transform.position = snappedPosition;
+		}
+		else {
+			_spawnBlockPreview.enabled = false;
+		}
 
 	}
 

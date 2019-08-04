@@ -28,6 +28,7 @@ public class LevelManager : MonoBehaviour
 		if (MusicMuted) {
 			MusicAudio.volume = 0;
 		}
+		
 	}
 
     // Update is called once per frame
@@ -42,7 +43,18 @@ public class LevelManager : MonoBehaviour
 			if (MusicMuted) {
 				MusicAudio.volume = 0;
 			}
+			else {
+				MusicAudio.volume = .5f;
+			}
 		}
+
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			Application.Quit();
+		}
+	}
+
+	public static void HighlightAbilityAnimation() {
+		instance.UIAnimator.SetTrigger("HighlightAbility");
 	}
 
 	public static void RestartLevel() {
