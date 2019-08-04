@@ -123,3 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HeldByPlayer: 0
   CanBePickedUp: 1
+  AbilityName: Push
+  AbilitySprite: {fileID: -6793467927654196686, guid: a277507fa24e0f14d935952df06b5686,
+    type: 3}
+  AbilityDescription: Push blocks around

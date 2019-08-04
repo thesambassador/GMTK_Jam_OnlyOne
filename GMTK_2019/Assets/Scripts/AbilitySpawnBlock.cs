@@ -9,12 +9,8 @@ public class AbilitySpawnBlock : PlayerAbility
 	public Grid grid;
 
 	protected override void InternalPickup() {
-		if (grid != null) {
-			print("got grid");
+		if (grid == null) {
 			grid = GameObject.FindObjectOfType<Grid>();
-		}
-		else {
-			print("no grid?!");
 		}
 	}
 

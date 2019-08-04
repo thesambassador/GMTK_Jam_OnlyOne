@@ -127,6 +127,9 @@ public class PlayerControls : MonoBehaviour
 
 			if (_numAirJumpsRemaining > 0) {
 				if (_controls.GetButtonDown(ActionNames.Jump)){
+					Vector2 vel = _rb.velocity;
+					vel.y = 0;
+					_rb.velocity = vel;
 					_rb.AddForce(new Vector2(0, JumpInitialVelocity), ForceMode2D.Impulse);
 					_numAirJumpsRemaining--;
 				}

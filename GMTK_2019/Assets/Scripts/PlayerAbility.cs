@@ -17,6 +17,8 @@ public class PlayerAbility : MonoBehaviour
 		_player = player;
 		this.gameObject.SetActive(false);
 
+		AbilityPanel.SetAbilityInfo(this);
+
 		InternalPickup();
 	}
 

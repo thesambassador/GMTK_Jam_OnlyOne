@@ -7490,6 +7490,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HeldByPlayer: 0
   CanBePickedUp: 1
+  AbilityName: 
+  AbilitySprite: {fileID: 0}
+  AbilityDescription: 
 --- !u!212 &1789777184
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7787,7 +7790,7 @@ PrefabInstance:
     - target: {fileID: 4107657336725838997, guid: 2260d38853b06a54281a84704034128d,
         type: 3}
       propertyPath: CanPush
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4543603910364029610, guid: 2260d38853b06a54281a84704034128d,
         type: 3}

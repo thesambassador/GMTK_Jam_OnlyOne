@@ -97,6 +97,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HeldByPlayer: 0
   CanBePickedUp: 1
+  AbilityName: Double Jump
+  AbilitySprite: {fileID: 4616144251219174747, guid: a277507fa24e0f14d935952df06b5686,
+    type: 3}
+  AbilityDescription: Jump Once in the Air
 --- !u!61 &7427058020399791416
 BoxCollider2D:
   m_ObjectHideFlags: 0

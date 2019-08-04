@@ -8698,25 +8698,30 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3437082492654580500, guid: 57574d7ab142e834bb34240c99756b61,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 950
+      objectReference: {fileID: 0}
     - target: {fileID: 3437082492654580501, guid: 57574d7ab142e834bb34240c99756b61,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 15
+      value: 113
       objectReference: {fileID: 0}
     - target: {fileID: 3437082492654580501, guid: 57574d7ab142e834bb34240c99756b61,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 3
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 3437082492654580501, guid: 57574d7ab142e834bb34240c99756b61,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 4
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 3437082492654580501, guid: 57574d7ab142e834bb34240c99756b61,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3437082492654580501, guid: 57574d7ab142e834bb34240c99756b61,
         type: 3}
@@ -8726,7 +8731,16 @@ PrefabInstance:
     - target: {fileID: 3437082492654580501, guid: 57574d7ab142e834bb34240c99756b61,
         type: 3}
       propertyPath: m_text
-      value: Get to the goal!
+      value: 'Get to the goal!
+
+        Keyboard: WASD or Arrows to move, Space or Z to jump.
+
+        Controller: Left stick to move, A to jump.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3437082492654580501, guid: 57574d7ab142e834bb34240c99756b61,
+        type: 3}
+      propertyPath: m_firstOverflowCharacterIndex
+      value: 17
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57574d7ab142e834bb34240c99756b61, type: 3}
@@ -8743,7 +8757,7 @@ GameObject:
   - component: {fileID: 1892676007}
   m_Layer: 0
   m_Name: Goal
-  m_TagString: Ability
+  m_TagString: Goal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
