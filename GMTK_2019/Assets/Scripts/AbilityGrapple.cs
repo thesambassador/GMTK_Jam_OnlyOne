@@ -42,7 +42,7 @@ public class AbilityGrapple : PlayerAbility
 	}
 
 	public IEnumerator GrappleToPoint(Vector2 point, bool actuallyGrapple) {
-
+		_player.SoundPlayer.PlaySound(PlayerSound.GrappleShoot);
 		_player.PausePlayerControls();
 		Vector2 startPosition = _player.transform.position;
 
@@ -61,6 +61,7 @@ public class AbilityGrapple : PlayerAbility
 
 		//now pull player to the right point
 		if (actuallyGrapple) {
+			_player.SoundPlayer.PlaySound(PlayerSound.GrappleHitPull);
 			Vector2 endPosition = point;
 			endPosition.x -= .35f * Mathf.Sign(endPosition.x - startPosition.x);
 			Debug.DrawLine(startPosition, endPosition);
@@ -71,6 +72,9 @@ public class AbilityGrapple : PlayerAbility
 				yield return null;
 			}
 			_player.transform.position = endPosition;
+		}
+		else {
+			_player.SoundPlayer.PlaySound(PlayerSound.GrappleHitNoPull);
 		}
 		Destroy(grappleObject.gameObject);
 

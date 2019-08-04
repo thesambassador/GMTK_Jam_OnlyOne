@@ -19,6 +19,10 @@ public class PushableBlock : MonoBehaviour {
 
 	public BoxCaster BoxcastHelper;
 
+	public AudioClip PushBlockSound;
+	public AudioClip BlockLandSound;
+
+	private AudioSource _audio;
 	
 
 	// Start is called before the first frame update
@@ -26,7 +30,7 @@ public class PushableBlock : MonoBehaviour {
     {
 		
 		ResetPushTimer();
-
+		_audio = GetComponent<AudioSource>();
 	}
 
     // Update is called once per frame
@@ -90,6 +94,7 @@ public class PushableBlock : MonoBehaviour {
 	}
 
 	public IEnumerator Push(float pushDist) {
+		_audio.PlayOneShot(PushBlockSound);
 		isPushing = true;
 		Vector2 startPosition = transform.position;
 		Vector2 endPosition = startPosition;
@@ -123,7 +128,7 @@ public class PushableBlock : MonoBehaviour {
 			transform.position = Vector2.MoveTowards(transform.position, endPosition, speed * Time.deltaTime);
 			yield return null;
 		}
-
+		_audio.PlayOneShot(BlockLandSound);
 		isFalling = false;
 	}
 	

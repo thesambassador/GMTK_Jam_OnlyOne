@@ -52,6 +52,7 @@ public class PlayerControls : MonoBehaviour
 	public PlayerAbility CurrentAbility;
 
 	public BoxCaster boxCaster;
+	public PlayerSounds SoundPlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -60,8 +61,9 @@ public class PlayerControls : MonoBehaviour
 		_rb = GetComponent<Rigidbody2D>();
 		_animator = GetComponentInChildren<Animator>();
 
-
 		_horizontalMovementForce = new Vector2(0, 0);
+
+		SoundPlayer = GetComponent<PlayerSounds>();
 	}
 
     // Update is called once per frame
@@ -112,6 +114,7 @@ public class PlayerControls : MonoBehaviour
 			if (_controls.GetButtonDown(ActionNames.Jump)) {
 
 				_rb.AddForce(new Vector2(0, JumpInitialVelocity), ForceMode2D.Impulse);
+				SoundPlayer.PlaySound(PlayerSound.Jump);
 				CanJump = false;
 				_jumpCooldownTimer = JumpCooldown;
 			}
@@ -131,6 +134,7 @@ public class PlayerControls : MonoBehaviour
 					vel.y = 0;
 					_rb.velocity = vel;
 					_rb.AddForce(new Vector2(0, JumpInitialVelocity), ForceMode2D.Impulse);
+					SoundPlayer.PlaySound(PlayerSound.Jump);
 					_numAirJumpsRemaining--;
 				}
 			}
@@ -147,6 +151,10 @@ public class PlayerControls : MonoBehaviour
 			//print(groundHit.point.y);
 			if (groundHit.point.y < transform.position.y - .35f) {
 				_animator.SetBool("InAir", false);
+				if (!OnGround) {
+					SoundPlayer.PlaySound(PlayerSound.Land);
+				}
+
 				OnGround = true;
 				_numAirJumpsRemaining = NumAdditionalJumps;
 				_coyoteTimer = CoyoteTime;
@@ -194,6 +202,7 @@ public class PlayerControls : MonoBehaviour
 				CurrentAbility.DropAbility(ability.transform.position);
 			}
 			ability.PickupAbility(this);
+			SoundPlayer.PlaySound(PlayerSound.Pickup);
 			CurrentAbility = ability;
 		}
 		else if(collision.tag == "Goal") {

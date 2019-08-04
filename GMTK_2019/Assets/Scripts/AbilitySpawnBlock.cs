@@ -27,7 +27,7 @@ public class AbilitySpawnBlock : PlayerAbility
 			Vector2 direction = Vector2.right;
 			if (!_player.facingRight) direction = Vector2.left;
 
-			if(!_player.boxCaster.BoxcastInDirection(direction, 1, _player.GroundLayers)) {
+			if (!_player.boxCaster.BoxcastInDirection(direction, 1, _player.GroundLayers)) {
 				Vector2 targetPosition = (Vector2)_player.transform.position + direction;
 				print("Target: " + targetPosition);
 				Vector3Int cellCoordinates = grid.WorldToCell(targetPosition);
@@ -40,9 +40,12 @@ public class AbilitySpawnBlock : PlayerAbility
 				if (!_player.facingRight) {
 					snappedPosition.x += 1;
 				}
-
+				_player.SoundPlayer.PlaySound(PlayerSound.SpawnBox);
 				SpawnBlock(snappedPosition);
-				
+
+			}
+			else {
+				_player.SoundPlayer.PlaySound(PlayerSound.Error);
 			}
 
 		}
