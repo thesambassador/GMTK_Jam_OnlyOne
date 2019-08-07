@@ -55,7 +55,7 @@ public class PushableBlock : MonoBehaviour {
 		if(BoxcastHelper.GetFirstBoxcastHit(Vector2.down, 100, GroundLayers, out result)) {
 			float dist = transform.position.y - result.point.y - HalfBoxSize;
 			//print(dist);
-			if(dist > 0) {
+			if(dist > 0.01) {
 				StartCoroutine(Fall(dist));
 			}
 		}

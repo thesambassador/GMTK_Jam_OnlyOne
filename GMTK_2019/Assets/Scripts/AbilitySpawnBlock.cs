@@ -48,6 +48,7 @@ public class AbilitySpawnBlock : PlayerAbility
 
 	protected override void InternalDrop() {
 		_player.CanPush = false;
+		Destroy(_spawnBlockPreview.gameObject);
 	}
 	protected override void InternalUse() {
 		print("test");

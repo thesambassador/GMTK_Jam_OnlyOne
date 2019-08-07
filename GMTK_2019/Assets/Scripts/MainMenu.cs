@@ -15,6 +15,11 @@ public class MainMenu : MonoBehaviour
 	public CanvasGroup MenuGroup;
 	public AudioSource MenuMusic;
 
+	public CanvasGroup LevelSelectGroup;
+	public LevelSelect Select;
+
+	public int actionButtonPresses = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +45,14 @@ public class MainMenu : MonoBehaviour
 			}
 		}
 
+		if (_player.GetButtonDown(ActionNames.Ability)) {
+			actionButtonPresses++;
+			if(actionButtonPresses >= 5) {
+				PlayerPrefs.SetInt("FurthestLevel", 10);
+				SceneManager.LoadScene(0);
+			}
+		}
+
 		if (Input.GetKeyDown(KeyCode.Escape)) {
 			Application.Quit();
 		}
@@ -49,15 +62,34 @@ public class MainMenu : MonoBehaviour
 
 		float time = FadeTime;
 		while(time > 0) {
-			if (!LevelManager.MusicMuted) {
-				MenuMusic.volume = (time / FadeTime) / .5f;
-			}
+			//if (!LevelManager.MusicMuted) {
+			//	MenuMusic.volume = (time / FadeTime) / .5f;
+			//}
 			MenuGroup.alpha = time / FadeTime;
 			time -= Time.deltaTime;
 			yield return null;
 		}
 		MenuGroup.alpha = 0;
 
-		SceneManager.LoadScene(1);
+		int FurthestLevel = PlayerPrefs.GetInt("FurthestLevel", 1);
+		if (FurthestLevel == 1) {
+			SceneManager.LoadScene(1);
+		}
+		else {
+
+			Select.CanSelect = true;
+			time = 0;
+			LevelSelectGroup.gameObject.SetActive(true);
+			while (time < FadeTime) {
+				//if (!LevelManager.MusicMuted) {
+				//	MenuMusic.volume = (time / FadeTime) / .5f;
+				//}
+				LevelSelectGroup.alpha = time / FadeTime;
+				time += Time.deltaTime;
+				yield return null;
+			}
+
+			LevelSelectGroup.alpha = 1;
+		}
 	}
 }

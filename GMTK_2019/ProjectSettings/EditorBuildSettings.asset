@@ -33,6 +33,12 @@ EditorBuildSettings:
     path: Assets/Scenes/L8.unity
     guid: 6081f92103cf50841b4c6e238d02b2a6
   - enabled: 1
+    path: Assets/Scenes/L9.unity
+    guid: c13532743f142494e9f26030c99768cd
+  - enabled: 1
+    path: Assets/Scenes/L10.unity
+    guid: 857794bdd32c7a544a454d258d4f782a
+  - enabled: 1
     path: Assets/Scenes/credits.unity
     guid: 359498becfeef394e8b2409416484eec
   m_configObjects: {}

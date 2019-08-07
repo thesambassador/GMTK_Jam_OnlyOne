@@ -23,12 +23,23 @@ public class LevelManager : MonoBehaviour
 		instance = this;
 		_controls = ReInput.players.GetPlayer(0);
 		int buildIndex = SceneManager.GetActiveScene().buildIndex;
-		PlayerPrefs.SetInt("FurthestLevel", buildIndex);
+
+		int curFurthest = PlayerPrefs.GetInt("FurthestLevel", 1);
+		if (buildIndex > curFurthest) {
+			PlayerPrefs.SetInt("FurthestLevel", buildIndex);
+		}
+
+
 
 		if (MusicMuted) {
 			MusicAudio.volume = 0;
 		}
 		
+	}
+
+	[Button("ResetProgress")]
+	public void ResetProgress() {
+		PlayerPrefs.SetInt("FurthestLevel", 1);
 	}
 
     // Update is called once per frame
